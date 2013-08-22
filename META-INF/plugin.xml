@@ -1,0 +1,23 @@
+<idea-plugin version="2">
+  <id>GradleDependenciesHelper</id>
+  <name>Gradle Dependencies Helper</name>
+  <version>1.0</version>
+  <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
+  <depends>org.jetbrains.plugins.gradle</depends>
+  <depends>org.intellij.groovy</depends>
+
+  <description><![CDATA[
+      library is searched in Basic Code Completion by Maven repository
+      ]]></description>
+
+  <change-notes><![CDATA[
+      ]]>
+  </change-notes>
+
+  <idea-version since-build="130.1619"/>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <completion.contributor language="Groovy"
+        implementationClass="siosio.GradleDependenciesCompletionContributor" order="first"/>
+  </extensions>
+</idea-plugin>
