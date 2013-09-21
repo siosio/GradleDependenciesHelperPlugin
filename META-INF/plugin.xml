@@ -5,6 +5,7 @@
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
+  <depends>org.jetbrains.idea.maven</depends>
 
   <description><![CDATA[
       library is searched in Basic Code Completion by Maven repository

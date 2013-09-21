@@ -1,6 +1,6 @@
 package siosio;
 
-import java.util.List;
+import java.util.Set;
 
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
@@ -47,7 +47,7 @@ public class GradleDependenciesCompletionContributor extends CompletionContribut
             if (StringUtil.isEmpty(text) || text.length() < 2) {
                 return;
             }
-            List<String> result = new MavenFindAction().find(text);
+            Set<String> result = new MavenFindAction().find(text);
             for (final String id : result) {
                 set.addElement(new LookupElement() {
                     @NotNull
