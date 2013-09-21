@@ -13,27 +13,40 @@ import java.util.regex.Pattern;
 
 public class MavenFindAction {
 
+    /** mavenのアクセス結果からライブラリ名と最新バージョンを抽出する正規表現 */
     private static final Pattern PATTERN = Pattern.compile(
-            "\\{\"id\":\"([^\"]+)\"[^\\}]+\"latestVersion\":\"([^\"]+)\"");
+            "\\{\"id\":\"([^\"]+)\"");
+
+    /** url */
+    private static final String FIND_URL =
+            "http://search.maven.org/solrsearch/select?q=a:\"%s\"&core=gav&rows=30&wt=json";
 
     public List<String> find(String text) {
-        List<String> result = new ArrayList<String>();
+
+        List<String> result = new ArrayList<String>(30);
+        BufferedReader reader = null;
         try {
-            HttpURLConnection connection = getConnection(
-                    "http://search.maven.org/solrsearch/select?q=a:" + text + "+OR+a:" + text + "*&rows=20&wt=json");
+            HttpURLConnection connection = getConnection(String.format(FIND_URL, text));
 
             InputStream stream = getResponse(connection);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            reader = new BufferedReader(new InputStreamReader(stream));
 
             String line = null;
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = PATTERN.matcher(line);
                 while (matcher.find()) {
-                    result.add(matcher.group(1) + ':' + matcher.group(2));
+                    result.add(matcher.group(1));
                 }
             }
         } catch (IOException ignore) {
             return result;
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ignore) {
+                }
+            }
         }
         return result;
     }
