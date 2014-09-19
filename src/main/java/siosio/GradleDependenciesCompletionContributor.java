@@ -1,29 +1,33 @@
 package siosio;
 
-import java.util.List;
+import static com.intellij.patterns.PlatformPatterns.psiElement;
+import static com.intellij.patterns.StandardPatterns.string;
 
-import com.intellij.codeInsight.completion.CompletionContributor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElement;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.GrApplicationStatement;
+import org.jetbrains.plugins.gradle.codeInsight.AbstractGradleCompletionContributor;
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral;
+import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.path.GrMethodCallExpression;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
-
-public class GradleDependenciesCompletionContributor extends CompletionContributor {
+public class GradleDependenciesCompletionContributor extends AbstractGradleCompletionContributor {
 
     public GradleDependenciesCompletionContributor() {
-        extend(CompletionType.BASIC,
-                psiElement(PsiElement.class)
-                        .withSuperParent(3, psiElement(GrApplicationStatement.class))
-                        .withParent(GrLiteral.class),
+        extend(CompletionType.SMART,
+                psiElement(PsiElement.class).and(GRADLE_FILE_PATTERN)
+                        .withParent(GrLiteral.class)
+                        .withSuperParent(5, psiElement(GrMethodCallExpression.class).withText(string().contains("dependencies"))),
                 new CompletionParametersCompletionProvider());
     }
 
@@ -35,10 +39,6 @@ public class GradleDependenciesCompletionContributor extends CompletionContribut
                 ProcessingContext context,
                 @NotNull CompletionResultSet set) {
 
-            if (!parameters.getOriginalFile().getName().endsWith(".gradle")) {
-                return;
-            }
-
             PsiElement position = parameters.getOriginalPosition();
             if (position == null) {
                 return;
@@ -47,16 +47,20 @@ public class GradleDependenciesCompletionContributor extends CompletionContribut
             if (StringUtil.isEmpty(text) || text.length() < 2) {
                 return;
             }
-            List<String> result = new MavenFindAction().find(text);
-            for (final String id : result) {
-                set.addElement(new LookupElement() {
-                    @NotNull
-                    @Override
-                    public String getLookupString() {
-                        return id;
-                    }
-                });
+            String[] split = text.split(":");
+            Set<String> result;
+            if (split.length == 3 || split.length == 2) {
+                set.restartCompletionOnPrefixChange(text);
+                result = new MavenFindAction().findVersion(split[0], split[1]);
+            } else {
+                result = new MavenFindAction().find(text);
             }
+
+            List<LookupElement> elements = new ArrayList<LookupElement>();
+            for (String str : result) {
+                elements.add(LookupElementBuilder.create(str));
+            }
+            set.addAllElements(elements);
             set.stopHere();
         }
 
@@ -71,3 +75,4 @@ public class GradleDependenciesCompletionContributor extends CompletionContribut
         }
     }
 }
+
