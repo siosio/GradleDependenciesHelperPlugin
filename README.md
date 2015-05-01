@@ -1,4 +1,9 @@
 GradleDependenciesHelperPlugin
 ==============================
+It is IntelliJ IDEA plugin to search for the library from Maven Central.
 
-Gradleのdependencies内で、mavenからライブラリ検索して補完出来るプラグイン
+Plugin Download page
+------------------------
+
+[https://plugins.jetbrains.com/plugin/7299](https://plugins.jetbrains.com/plugin/7299)
+
