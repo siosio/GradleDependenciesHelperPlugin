@@ -5,7 +5,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.TreeSet
+import java.util.*
 import java.util.regex.Pattern
 
 public class MavenFinder {
@@ -22,8 +22,7 @@ public class MavenFinder {
 
     /** バージョ番号を取得するURL */
     private val FIND_VERSION_URL =
-        "http://search.maven.org/solrsearch/select?" +
-            "q=g:\"%s\"+AND+a:\"%s\"&rows=20&core=gav&wt=json"
+        "http://search.maven.org/solrsearch/select?q=g:\"%s\"+AND+a:\"%s\"&rows=20&core=gav&wt=json"
 
     private fun getConnection(spec: String): HttpURLConnection {
       val url = URL(spec)
@@ -31,14 +30,14 @@ public class MavenFinder {
     }
 
     private fun getResponse(connection: HttpURLConnection): InputStream {
-      if (connection.getResponseCode() != 200) {
+      if (connection.responseCode != 200) {
         throw IOException("response is abnormal end.")
       }
-      return connection.getInputStream()
+      return connection.inputStream
     }
   }
 
-  fun find(searchParam:SearchParam):Set<String> {
+  fun find(searchParam: SearchParam): Set<String> {
     return if (searchParam.isFindVersion()) {
       search(
           FIND_VERSION_URL.format(searchParam.group, searchParam.name), VERSION_PATTERN)

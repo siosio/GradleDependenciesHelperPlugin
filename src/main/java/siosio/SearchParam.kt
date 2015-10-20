@@ -7,7 +7,7 @@ class SearchParam(text: String) {
   val name: String
   val text: String
 
-  {
+  init {
     val list = text.split(splitPattern)
     if (list.size() in (2..3)) {
       this.group = list[0]
@@ -23,6 +23,7 @@ class SearchParam(text: String) {
   fun isFindVersion() = text.isEmpty()
 
   companion object {
-    val splitPattern = Pattern.compile(":")
+    private val splitPattern = Pattern.compile(":")
   }
 }
+

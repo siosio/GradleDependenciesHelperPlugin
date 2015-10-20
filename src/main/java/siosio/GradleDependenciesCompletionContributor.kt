@@ -12,16 +12,15 @@ import com.intellij.util.ProcessingContext
 import org.jetbrains.plugins.gradle.codeInsight.AbstractGradleCompletionContributor
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.path.GrMethodCallExpression
-import java.util.regex.Pattern
 
 public class GradleDependenciesCompletionContributor : AbstractGradleCompletionContributor() {
 
   init {
     extend(CompletionType.SMART,
-        psiElement(javaClass<PsiElement>())
+        psiElement(PsiElement::class.java)
             .and(AbstractGradleCompletionContributor.GRADLE_FILE_PATTERN)
-            .withParent(javaClass<GrLiteral>())
-            .withSuperParent(5, psiElement(javaClass<GrMethodCallExpression>())
+            .withParent(GrLiteral::class.java)
+            .withSuperParent(5, psiElement(GrMethodCallExpression::class.java)
                 .withText(string().contains("dependencies"))), CompletionParametersCompletionProvider())
   }
 
@@ -59,8 +58,6 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
   }
 
   companion object {
-
-    val splitPattern = Pattern.compile(":")
 
     fun isShortText(text: String?) = (text?.length() ?: 0) < 2
 
