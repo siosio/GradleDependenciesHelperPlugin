@@ -8,7 +8,7 @@
   <depends>org.jetbrains.idea.maven</depends>
 
   <description><![CDATA[
-      library is searched in Basic Code Completion by Maven repository
+      library is searched in Smart Code Completion by Maven repository
       ]]></description>
 
   <change-notes><![CDATA[
@@ -25,6 +25,8 @@
   <extensions defaultExtensionNs="com.intellij">
     <completion.contributor language="Groovy"
         implementationClass="siosio.GradleDependenciesCompletionContributor" order="first" />
+
+    <documentationProvider implementation="siosio.OpenMavenCentralProvider" order="first" />
   </extensions>
 
   <extensions defaultExtensionNs="siosio">

@@ -36,7 +36,7 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
       val position = parameters.getOriginalPosition()
 
       position?.let {
-        val text = trimQuote(it.getText())
+        val text = Utils.trimQuote(it.getText())
         if (isShortText(text)) {
           return
         }
@@ -61,7 +61,6 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
 
     fun isShortText(text: String?) = (text?.length() ?: 0) < 2
 
-    fun trimQuote(text: String) = text.trim('"', '\'').trimEnd('"', '\'')
   }
 }
 
