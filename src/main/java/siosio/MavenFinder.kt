@@ -37,6 +37,10 @@ public class MavenFinder {
     }
   }
 
+  fun contains(searchParam: SearchParam): Boolean {
+    return !search(FIND_VERSION_URL.format(searchParam.group, searchParam.name), VERSION_PATTERN).isEmpty()
+  }
+
   fun find(searchParam: SearchParam): Set<String> {
     return if (searchParam.isFindVersion()) {
       search(

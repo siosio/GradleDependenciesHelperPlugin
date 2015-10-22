@@ -33,10 +33,10 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
         context: ProcessingContext,
         resultSet: CompletionResultSet) {
 
-      val position = parameters.getOriginalPosition()
+      val position = parameters.originalPosition
 
       position?.let {
-        val text = Utils.trimQuote(it.getText())
+        val text = Utils.trimQuote(it.text)
         if (isShortText(text)) {
           return
         }
@@ -58,9 +58,7 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
   }
 
   companion object {
-
-    fun isShortText(text: String?) = (text?.length() ?: 0) < 2
-
+    fun isShortText(text: String?) = (text?.length ?: 0) < 2
   }
 }
 

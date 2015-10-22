@@ -20,11 +20,13 @@ class OpenMavenCentralProvider : DocumentationProvider {
     if (element !is GrLiteral) {
       return null
     }
-    val splitText = Utils.split(Utils.trimQuote(element.text))
-    if (splitText.size() != 3) {
+
+    val searchParam = SearchParam(Utils.trimQuote(element.text))
+    if (!MavenFinder().contains(searchParam)) {
       return null
     }
-    return listOf(mavenUrl.format(splitText[0], splitText[1]))
+
+    return listOf(mavenUrl.format(searchParam.group, searchParam.name))
   }
 
   override fun generateDoc(element: PsiElement, element1: PsiElement?): String? {
