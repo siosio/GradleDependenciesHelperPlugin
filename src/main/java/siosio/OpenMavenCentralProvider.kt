@@ -8,8 +8,8 @@ import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals
 class OpenMavenCentralProvider : DocumentationProvider {
 
   companion object {
-    //private val detailPageUrl: String = "http://search.maven.org/#artifactdetails|%s|%s|%s|jar"
-    private val mavenUrl: String = "http://search.maven.org/#search|gav|1|g:\"%s\" AND a:\"%s\""
+    private val groupAndArtifact: String = "http://search.maven.org/#search|gav|1|g:\"%s\" AND a:\"%s\""
+    private val group: String = "http://search.maven.org/#search|gav|1|g:\"%s\""
   }
 
   override fun getQuickNavigateInfo(element: PsiElement, element1: PsiElement): String? {
@@ -21,12 +21,14 @@ class OpenMavenCentralProvider : DocumentationProvider {
       return null
     }
 
-    val searchParam = SearchParam(Utils.trimQuote(element.text))
-    if (!MavenFinder().contains(searchParam)) {
-      return null
-    }
-
-    return listOf(mavenUrl.format(searchParam.group, searchParam.name))
+    val split = Utils.split(Utils.trimQuote(element.text))
+    return listOf(
+        if (split.size > 2) {
+          groupAndArtifact.format(split[0], split[1])
+        } else {
+          group.format(split[0])
+        }
+    )
   }
 
   override fun generateDoc(element: PsiElement, element1: PsiElement?): String? {
