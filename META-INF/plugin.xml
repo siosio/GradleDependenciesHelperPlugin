@@ -13,6 +13,9 @@
 
   <change-notes><![CDATA[
   <ul>
+    <li>1.4
+    Add the feature to open  "Maven Central" in the external documentation
+    </li>
     <li>1.1
     change completion type.(to "Smart type" from "Basic type")
     </li>
