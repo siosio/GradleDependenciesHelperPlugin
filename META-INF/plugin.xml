@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
-  <version>1.4</version>
+  <version>1.5</version>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
@@ -13,6 +13,9 @@
 
   <change-notes><![CDATA[
   <ul>
+    <li>1.5
+    Add sort of completion list
+    </li>
     <li>1.4
     Add the feature to open  "Maven Central" in the external documentation
     </li>
