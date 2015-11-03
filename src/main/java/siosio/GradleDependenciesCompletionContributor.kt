@@ -1,17 +1,15 @@
 package siosio
 
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
-import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.completion.CompletionType
-import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.completion.impl.*
+import com.intellij.codeInsight.lookup.*
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.patterns.StandardPatterns.string
-import com.intellij.psi.PsiElement
-import com.intellij.util.ProcessingContext
-import org.jetbrains.plugins.gradle.codeInsight.AbstractGradleCompletionContributor
-import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.GrLiteral
-import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.path.GrMethodCallExpression
+import com.intellij.psi.*
+import com.intellij.util.*
+import org.jetbrains.plugins.gradle.codeInsight.*
+import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.*
+import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.path.*
 
 public class GradleDependenciesCompletionContributor : AbstractGradleCompletionContributor() {
 
@@ -43,18 +41,40 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
 
         val searchParam = SearchParam(text)
 
-        if (searchParam.isFindVersion()) {
+        val searchResult = mavenFinder.find(searchParam)
+        val completionResultSet = if (searchParam.isFindVersion()) {
           resultSet.restartCompletionOnPrefixChange(text)
+          resultSet.withRelevanceSorter(
+              CompletionSorter.emptySorter().weigh(object : LookupElementWeigher("gradleDependencyWeigher") {
+                override fun weigh(element: LookupElement): Comparable<*> {
+                  return DependencyComparable(searchResult, element)
+                }
+              })
+          )
+        } else {
+          resultSet.withRelevanceSorter(
+              CompletionSorter.emptySorter().weigh(PreferStartMatching())
+          )
         }
 
-        resultSet.addAllElements(
-            mavenFinder.find(searchParam)
-                .map {
-                  LookupElementBuilder.create(it)
-                }.toList())
-        resultSet.stopHere()
+        searchResult.forEach {
+          completionResultSet.addElement(LookupElementBuilder.create(it))
+        }
       }
     }
+  }
+
+  class DependencyComparable(
+      versions: Set<String>,
+      private val element: LookupElement) : Comparable<DependencyComparable> {
+
+    private val index: Int;
+
+    init {
+      index = versions.indexOf(element.lookupString)
+    }
+
+    override fun compareTo(other: DependencyComparable): Int = this.index - other.index
   }
 
   companion object {
