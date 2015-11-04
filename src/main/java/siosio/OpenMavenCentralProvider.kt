@@ -13,11 +13,11 @@ class OpenMavenCentralProvider : DocumentationProvider {
     private const val GROUP: String = "http://search.maven.org/#search|gav|1|g:\"%s\""
   }
 
-  override fun getQuickNavigateInfo(element: PsiElement, element1: PsiElement): String? {
+  override fun getQuickNavigateInfo(element: PsiElement?, element1: PsiElement?): String? {
     return null
   }
 
-  override fun getUrlFor(element: PsiElement, element1: PsiElement): List<String>? {
+  override fun getUrlFor(element: PsiElement?, element1: PsiElement?): List<String>? {
     if (element !is GrLiteral) {
       return null
     }
@@ -37,11 +37,11 @@ class OpenMavenCentralProvider : DocumentationProvider {
     return null
   }
 
-  override fun getDocumentationElementForLookupItem(manager: PsiManager, o: Any, element: PsiElement): PsiElement? {
+  override fun getDocumentationElementForLookupItem(manager: PsiManager?, o: Any?, element: PsiElement?): PsiElement? {
     return null
   }
 
-  override fun getDocumentationElementForLink(manager: PsiManager, s: String, element: PsiElement): PsiElement? {
+  override fun getDocumentationElementForLink(manager: PsiManager?, s: String?, element: PsiElement?): PsiElement? {
     return null
   }
 }
