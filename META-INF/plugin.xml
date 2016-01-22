@@ -1,11 +1,10 @@
 <idea-plugin version="2">
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
-  <version>1.6</version>
+  <version>1.7</version>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
-  <depends>org.jetbrains.idea.maven</depends>
 
   <description><![CDATA[
       library is searched in Smart Code Completion by Maven repository
@@ -13,6 +12,9 @@
 
   <change-notes><![CDATA[
   <ul>
+    <li>1.7
+    Removed the dependence of Maven Integration
+    <li>
     <li>1.6
     bug fix.
     </li>
