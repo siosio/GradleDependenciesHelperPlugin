@@ -6,7 +6,7 @@ class SearchParam(text: String) {
   val text: String
 
   init {
-    val list = Utils.split(text)
+    val list = split(text)
     if (list.size in (2..3)) {
       this.group = list[0]
       this.name = list[1]

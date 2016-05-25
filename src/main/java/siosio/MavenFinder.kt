@@ -5,7 +5,7 @@ import java.net.*
 import java.util.*
 import kotlin.text.*
 
-public class MavenFinder {
+class MavenFinder {
 
   companion object {
 

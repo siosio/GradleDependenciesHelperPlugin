@@ -11,7 +11,7 @@ import org.jetbrains.plugins.gradle.codeInsight.*
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.literals.*
 import org.jetbrains.plugins.groovy.lang.psi.api.statements.expressions.path.*
 
-public class GradleDependenciesCompletionContributor : AbstractGradleCompletionContributor() {
+class GradleDependenciesCompletionContributor : AbstractGradleCompletionContributor() {
 
   init {
     extend(CompletionType.SMART,
@@ -34,7 +34,7 @@ public class GradleDependenciesCompletionContributor : AbstractGradleCompletionC
       val position = parameters.originalPosition
 
       position?.let {
-        val text = Utils.trimQuote(it.text)
+        val text = trimQuote(it.text)
         if (isShortText(text)) {
           return
         }

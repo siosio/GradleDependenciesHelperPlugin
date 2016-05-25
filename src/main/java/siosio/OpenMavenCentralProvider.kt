@@ -22,7 +22,7 @@ class OpenMavenCentralProvider : DocumentationProvider {
       return null
     }
 
-    return Utils.split(Utils.trimQuote(element.text)).let {
+    return split(trimQuote(element.text)).let {
       listOf(
           if (it.size > 2) {
             GROUP_AND_ARTIFACT.format(it[0], it[1])
