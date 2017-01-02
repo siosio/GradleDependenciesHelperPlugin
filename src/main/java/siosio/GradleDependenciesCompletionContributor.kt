@@ -3,6 +3,7 @@ package siosio
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.completion.impl.*
 import com.intellij.codeInsight.lookup.*
+import com.intellij.patterns.*
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.patterns.StandardPatterns.string
 import com.intellij.psi.*
@@ -16,7 +17,7 @@ class GradleDependenciesCompletionContributor : AbstractGradleCompletionContribu
   init {
     extend(CompletionType.SMART,
         psiElement(PsiElement::class.java)
-            .and(AbstractGradleCompletionContributor.GRADLE_FILE_PATTERN)
+            .and(psiElement().inFile(PlatformPatterns.psiFile().withName(StandardPatterns.string().endsWith(".gradle"))))
             .withParent(GrLiteral::class.java)
             .withSuperParent(5, psiElement(GrMethodCallExpression::class.java)
                 .withText(string().contains("dependencies"))), CompletionParametersCompletionProvider())

@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
-  <version>1.7</version>
+  <version>1.8</version>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
@@ -12,6 +12,9 @@
 
   <change-notes><![CDATA[
   <ul>
+    <li>1.8
+    bug fix.<br/>
+    <li>
     <li>1.7
     Removed the dependence of Maven Integration
     <li>

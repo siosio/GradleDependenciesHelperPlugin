@@ -14,7 +14,9 @@
           <root url="jar://$APPLICATION_HOME_DIR$/plugins/gradle/lib/gradle.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIU/2016.3/60e414b15107a8513cbaa6840e5124711cd39430" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
