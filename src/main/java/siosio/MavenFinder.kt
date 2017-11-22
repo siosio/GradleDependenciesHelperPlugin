@@ -15,11 +15,11 @@ class MavenFinder {
     /** バージョン番号を抽出する正規表現 */
     private val VERSION_PATTERN = Regex("\\{\"id\":\"([^\"]+)\"")
 
-    private const val FIND_URL = "http://search.maven.org/solrsearch/select?q=a:\"%s\"&core=gav&rows=30&wt=json"
+    private const val FIND_URL = "http://search.maven.org/solrsearch/select?q=a:%s&core=gav&rows=50&wt=json"
 
     /** バージョ番号を取得するURL */
     private const val FIND_VERSION_URL =
-        "http://search.maven.org/solrsearch/select?q=g:\"%s\"+AND+a:\"%s\"&rows=20&core=gav&wt=json"
+        "http://search.maven.org/solrsearch/select?q=g:%s+AND+a:%s&rows=20&core=gav&wt=json"
 
     fun MatchResult.group(index: Int) = this.groups.get(index)!!.value
 

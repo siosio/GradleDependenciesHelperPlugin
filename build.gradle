@@ -16,7 +16,7 @@ apply plugin: "kotlin"
 
 intellij {
   pluginName 'Gradle Dependencies Helper'
-  version = 'IC-2017.1'
+  version = 'IU-2017.2.5'
   updateSinceUntilBuild = false
   plugins = ['Groovy', 'gradle']
 }
@@ -38,5 +38,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '4.1'
+  gradleVersion = '4.3.1'
 }
