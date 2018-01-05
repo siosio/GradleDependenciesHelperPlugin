@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
-  <version>1.9</version>
+  <version>1.10</version>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
@@ -34,12 +34,10 @@
       ]]>
   </change-notes>
 
-  <idea-version since-build="130.1619"/>
+  <idea-version since-build="173.0"/>
 
   <extensions defaultExtensionNs="com.intellij">
-    <completion.contributor language="Groovy"
-        implementationClass="siosio.GradleDependenciesCompletionContributor" order="first" />
-
+    <completion.contributor language="Groovy" implementationClass="siosio.GradleDependenciesCompletionContributor" order="first" />
     <documentationProvider implementation="siosio.OpenMavenCentralProvider" order="first" />
   </extensions>
 

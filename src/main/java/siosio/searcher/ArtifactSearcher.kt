@@ -1,0 +1,32 @@
+package siosio.searcher
+
+import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.completion.impl.*
+import com.intellij.codeInsight.lookup.*
+import siosio.*
+
+class ArtifactSearcher(override val dependencyText: DependencyText) : CentralSearcher {
+
+    override fun find(resultSet: CompletionResultSet) {
+        val text = Client.get(
+                "https://search.maven.org/solrsearch/select?q=g:${dependencyText.getGroupId()}" +
+                "&rows=200&wt=json")
+
+        resultSet.restartCompletionOnPrefixChange(dependencyText.text)
+        resultSet.withRelevanceSorter(
+                CompletionSorter.emptySorter().weigh(PreferStartMatching())
+        ).addAllElements(ARTIFACT_PATTERN.findAll(text)
+                .map {
+                    it.groups[1]!!.value
+                }
+                .distinct()
+                .map {
+                    LookupElementBuilder.create("${dependencyText.getGroupId()}:$it")
+                }.toList())
+    }
+
+
+    companion object {
+        private val ARTIFACT_PATTERN = Regex(",\"a\":\"([^\"]+)\"")
+    }
+}
