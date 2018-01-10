@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
-  <version>1.10</version>
+  <version>1.11</version>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
