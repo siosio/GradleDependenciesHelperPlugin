@@ -9,10 +9,10 @@ class ArtifactSearcher(override val dependencyText: DependencyText) : CentralSea
 
     override fun find(resultSet: CompletionResultSet) {
         val text = Client.get(
-                "https://search.maven.org/solrsearch/select?q=g:${dependencyText.getGroupId()}" +
+                "https://search.maven.org/solrsearch/select?q=g:${dependencyText.groupId}" +
                 "&rows=200&wt=json")
 
-        resultSet.restartCompletionOnPrefixChange(dependencyText.text)
+        resultSet.restartCompletionOnPrefixChange(dependencyText.text.orEmpty())
         resultSet.withRelevanceSorter(
                 CompletionSorter.emptySorter().weigh(PreferStartMatching())
         ).addAllElements(ARTIFACT_PATTERN.findAll(text)
@@ -21,7 +21,7 @@ class ArtifactSearcher(override val dependencyText: DependencyText) : CentralSea
                 }
                 .distinct()
                 .map {
-                    LookupElementBuilder.create("${dependencyText.getGroupId()}:$it")
+                    LookupElementBuilder.create("${dependencyText.groupId}:$it")
                 }.toList())
     }
 
