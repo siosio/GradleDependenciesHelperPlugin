@@ -16,7 +16,7 @@ apply plugin: "kotlin"
 
 intellij {
   pluginName 'Gradle Dependencies Helper'
-  version = 'IC-2017.3.2'
+  version = 'IC-2018.2.4'
   updateSinceUntilBuild = false
   plugins = ['Groovy', 'gradle']
 }
