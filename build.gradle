@@ -3,7 +3,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.10"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70"
   }
 }
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.10"
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70"
   testCompile 'junit:junit:4.12'
 }
 
