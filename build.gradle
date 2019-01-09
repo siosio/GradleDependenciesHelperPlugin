@@ -10,9 +10,10 @@ buildscript {
 plugins {
   id "org.jetbrains.intellij" version "0.4.1"
 }
-
 apply plugin: 'java'
 apply plugin: "kotlin"
+
+version '1.13'
 
 intellij {
   pluginName 'Gradle Dependencies Helper'
