@@ -20,8 +20,10 @@ class GradleDependenciesCompletionContributor : AbstractGradleCompletionContribu
                         .andOr(
                                 psiElement()
                                         .withParent(GrLiteral::class.java)
-                                        .withSuperParent(5, psiElement(GrMethodCallExpression::class.java)
-                                                .withText(containsDependencies)),
+                                        .andOr(
+                                                psiElement().withSuperParent(5, psiElement(GrMethodCallExpression::class.java).withText(containsDependencies)),
+                                                psiElement().withSuperParent(7, psiElement(GrMethodCallExpression::class.java).withText(containsDependencies))
+                                        ),
                                 psiElement()
                                         .withParent(GrStringContent::class.java)
                                         .withSuperParent(6, psiElement(GrMethodCallExpression::class.java)

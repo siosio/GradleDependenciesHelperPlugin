@@ -1,7 +1,6 @@
 <idea-plugin>
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
-  <version>1.12</version>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
   <depends>org.jetbrains.plugins.gradle</depends>
   <depends>org.intellij.groovy</depends>
@@ -12,6 +11,9 @@
 
   <change-notes><![CDATA[
   <ul>
+  <li>1.13
+  Add  completion in 'platform' or 'enforcedPlatform'
+  </li>
     <li>1.8
     bug fix.<br/>
     <li>
