@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-  id "org.jetbrains.intellij" version "0.3.10"
+  id "org.jetbrains.intellij" version "0.4.1"
 }
 
 apply plugin: 'java'
@@ -33,8 +33,8 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70"
-  testCompile 'junit:junit:4.12'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70"
+  testImplementation 'junit:junit:4.12'
 }
 
 task wrapper(type: Wrapper) {
