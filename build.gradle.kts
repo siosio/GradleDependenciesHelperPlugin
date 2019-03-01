@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-    id("org.jetbrains.intellij") version "0.4.1"
+    id("org.jetbrains.intellij") version "0.4.4"
 }
 
 apply(plugin = "java")
@@ -24,12 +24,12 @@ dependencies {
 
 intellij {
     pluginName = "Gradle Dependencies Helper"
-    version = "IC-2018.3.3"
+    version = "IC-2018.3.5"
     updateSinceUntilBuild = false
     setPlugins("Groovy", "gradle")
 }
 
-java {
+configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
@@ -44,6 +44,6 @@ repositories {
 
 tasks {
     wrapper {
-        gradleVersion = "5.1.1"
+        gradleVersion = "5.2.1"
     }
 }
