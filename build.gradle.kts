@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.30")
     }
 }
 
@@ -17,7 +17,7 @@ apply(plugin = "kotlin")
 version = "1.14"
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.11")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.30")
     testImplementation("junit:junit:4.12")
 }
 
