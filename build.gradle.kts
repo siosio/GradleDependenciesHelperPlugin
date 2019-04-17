@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-    id("org.jetbrains.intellij") version "0.4.4"
+    id("org.jetbrains.intellij") version "0.4.8"
 }
 
 apply(plugin = "java")
