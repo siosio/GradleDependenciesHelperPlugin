@@ -14,7 +14,7 @@ plugins {
 apply(plugin = "java")
 apply(plugin = "kotlin")
 
-version = "1.14"
+version = "1.15"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.30")
