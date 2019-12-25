@@ -24,7 +24,7 @@ dependencies {
 
 intellij {
     pluginName = "Gradle Dependencies Helper"
-    version = "IC-2018.3.5"
+    version = "IC-2019.3.1"
     updateSinceUntilBuild = false
     setPlugins("Groovy", "gradle")
 }
