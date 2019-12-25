@@ -44,6 +44,6 @@ repositories {
 
 tasks {
     wrapper {
-        gradleVersion = "5.4"
+        gradleVersion = "6.0.1"
     }
 }
