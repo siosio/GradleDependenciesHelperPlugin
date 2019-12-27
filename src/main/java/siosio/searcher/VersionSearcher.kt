@@ -1,9 +1,14 @@
 package siosio.searcher
 
-import com.intellij.codeInsight.completion.*
-import com.intellij.codeInsight.lookup.*
-import com.intellij.openapi.util.*
-import siosio.*
+import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.codeInsight.completion.CompletionSorter
+import com.intellij.codeInsight.completion.PrefixMatcher
+import com.intellij.codeInsight.lookup.LookupElement
+import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.lookup.LookupElementWeigher
+import siosio.CentralSearcher
+import siosio.Client
+import siosio.DependencyText
 
 class VersionSearcher(override val dependencyText: DependencyText) : CentralSearcher {
 
@@ -16,7 +21,7 @@ class VersionSearcher(override val dependencyText: DependencyText) : CentralSear
             it.groups[1]?.value
         }.distinct().toList()
 
-        resultSet.restartCompletionOnPrefixChange(dependencyText.text)
+        resultSet.withPrefixMatcher(PrefixMatcher.ALWAYS_TRUE)
         val withRelevanceSorter = resultSet.withRelevanceSorter(
                 CompletionSorter.emptySorter().weigh(object : LookupElementWeigher("gradleDependencyWeigher") {
                     override fun weigh(element: LookupElement): Comparable<VersionComparable> {
@@ -26,22 +31,8 @@ class VersionSearcher(override val dependencyText: DependencyText) : CentralSear
         )
         withRelevanceSorter.addAllElements(versions.map {
             LookupElementBuilder.create(it)
-                    .withInsertHandler { context, _ ->
-                        val editor = context.editor
-                        val document = editor.document
-                        val offset = editor.caretModel.offset
-                        val char = document.getText(TextRange(offset, offset + 1))
-                        if (char != "$") {
-                            return@withInsertHandler
-                        }
-                        val allText = document.text
-                        val indexOf = allText.indexOf('"', offset)
-                        if (document.getLineNumber(indexOf) != document.getLineNumber(offset)) {
-                            return@withInsertHandler
-                        }
-                        document.deleteString(offset, indexOf)
-                    }
         })
+        resultSet.stopHere()
     }
 
     companion object {
