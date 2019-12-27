@@ -26,7 +26,7 @@ intellij {
     pluginName = "Gradle Dependencies Helper"
     version = "IC-2019.3.1"
     updateSinceUntilBuild = false
-    setPlugins("Groovy", "gradle")
+    setPlugins("java", "Groovy", "gradle", "gradle-java")
 }
 
 configure<JavaPluginConvention> {

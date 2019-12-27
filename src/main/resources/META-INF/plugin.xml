@@ -2,7 +2,8 @@
   <id>GradleDependenciesHelper</id>
   <name>Gradle Dependencies Helper</name>
   <vendor email="siosio12@gmail.com" url="https://github.com/siosio/GradleDependenciesHelperPlugin">siosio</vendor>
-  <depends>org.jetbrains.plugins.gradle</depends>
+  <depends>com.intellij.gradle</depends>
+  <depends>com.intellij.modules.gradle.java</depends>
   <depends>org.intellij.groovy</depends>
 
   <description><![CDATA[
@@ -36,7 +37,7 @@
       ]]>
   </change-notes>
 
-  <idea-version since-build="173.0"/>
+  <idea-version since-build="193.0"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <completion.contributor language="Groovy" implementationClass="siosio.GradleDependenciesCompletionContributor" order="first" />
