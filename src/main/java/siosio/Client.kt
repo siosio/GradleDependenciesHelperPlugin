@@ -10,12 +10,16 @@ object Client {
 
     fun get(uri: String): String {
         val clientBuilder = RequestConfig.custom()
-        IdeHttpClientHelpers.ApacheHttpClient4.setProxyForUrlIfEnabled(clientBuilder, uri)
+        val basicCredentialsProvider = BasicCredentialsProvider()
+        
+        IdeHttpClientHelpers.ApacheHttpClient4.setProxyIfEnabled(clientBuilder)
+        IdeHttpClientHelpers.ApacheHttpClient4.setProxyCredentialsIfEnabled(basicCredentialsProvider)
 
         val response: CloseableHttpResponse = try {
             HttpClients.custom()
                     .setDefaultRequestConfig(clientBuilder.build())
                     .setConnectionTimeToLive(1, TimeUnit.SECONDS)
+                    .setDefaultCredentialsProvider(basicCredentialsProvider)
                     .build()
                     .execute(HttpGet(uri))
         } catch (e: Exception) {
