@@ -9,8 +9,8 @@ class OpenMavenCentralProvider : DocumentationProvider {
 
 
   companion object {
-    private const val GROUP_AND_ARTIFACT: String = "http://search.maven.org/#search|gav|1|g:\"%s\" AND a:\"%s\""
-    private const val GROUP: String = "http://search.maven.org/#search|gav|1|g:\"%s\""
+    private const val GROUP_AND_ARTIFACT: String = "https://search.maven.org/#search|gav|1|g:\"%s\" AND a:\"%s\""
+    private const val GROUP: String = "https://search.maven.org/#search|gav|1|g:\"%s\""
   }
 
   override fun getQuickNavigateInfo(element: PsiElement?, element1: PsiElement?): String? {
@@ -22,7 +22,7 @@ class OpenMavenCentralProvider : DocumentationProvider {
       return null
     }
 
-    return split(trimQuote(element.text)).let {
+    return split(trimQuote(element?.text ?: "")).let {
       listOf(
           if (it.size > 2) {
             GROUP_AND_ARTIFACT.format(it[0], it[1])

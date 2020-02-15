@@ -14,7 +14,7 @@ plugins {
 apply(plugin = "java")
 apply(plugin = "kotlin")
 
-version = "1.15"
+version = "1.16"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61")
@@ -24,9 +24,9 @@ dependencies {
 
 intellij {
     pluginName = "Gradle Dependencies Helper"
-    version = "IC-2019.3.1"
+    version = "LATEST-EAP-SNAPSHOT"
     updateSinceUntilBuild = false
-    setPlugins("java", "Groovy", "gradle", "gradle-java")
+    setPlugins("java", "Groovy", "gradle", "gradle-java", "Kotlin")
 }
 
 configure<JavaPluginConvention> {

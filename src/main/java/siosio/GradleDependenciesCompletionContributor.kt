@@ -29,24 +29,8 @@ class GradleDependenciesCompletionContributor : AbstractGradleCompletionContribu
                                         .withSuperParent(6, psiElement(GrMethodCallExpression::class.java)
                                                 .withText(containsDependencies))
                         
-                        ), CompletionParametersCompletionProvider())
+                        ), DependenciesCompletionProvider())
     }
 
-    private class CompletionParametersCompletionProvider : CompletionProvider<CompletionParameters>() {
-
-        override fun addCompletions(
-                parameters: CompletionParameters,
-                context: ProcessingContext,
-                resultSet: CompletionResultSet) {
-
-            val originalElement = parameters.originalPosition ?: return
-            if (originalElement.isValid.not()) {
-                return
-            }
-            DependencyText(trimQuote(originalElement.text))
-                    .takeUnless { it.isShort }
-                    ?.addCompletions(resultSet)
-        }
-    }
 }
 
