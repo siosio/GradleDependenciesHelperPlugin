@@ -5,6 +5,7 @@
   <depends>com.intellij.gradle</depends>
   <depends>com.intellij.modules.gradle.java</depends>
   <depends>org.intellij.groovy</depends>
+  <depends optional="true" config-file="kts.xml">org.jetbrains.kotlin</depends>
 
   <description><![CDATA[
       library is searched in Smart Code Completion by Maven repository
@@ -37,7 +38,7 @@
       ]]>
   </change-notes>
 
-  <idea-version since-build="193.0"/>
+  <idea-version since-build="201.0"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <completion.contributor language="Groovy" implementationClass="siosio.GradleDependenciesCompletionContributor" order="first" />
